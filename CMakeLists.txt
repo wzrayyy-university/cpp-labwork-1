@@ -1,5 +1,8 @@
-cmake_minimum_required(VERSION 3.0.0)
-project(labwork1 VERSION 0.1.0 LANGUAGES C CXX)
+cmake_minimum_required(VERSION 3.00)
+project(labwork1)
+
+set(CMAKE_EXE_LINKER_FLAGS "-static")
+set(CMAKE_CXX_STANDARD 23)
 
 add_executable(labwork1 main.cpp)
 
