@@ -20,19 +20,19 @@ void PrintHelpMessage(bool is_error, const std::filesystem::path& filepath) {
 
 void ErrorMessage(ErrorCodes error_code, char* argument, const std::filesystem::path& filepath) {
   switch (error_code) {
-    case ErrorCodes::FILENAME_MISSING:std::cerr << "ARGUMENT ERROR: Missing filename" << std::endl;
+    case ErrorCodes::kFilenameMissing:std::cerr << "ARGUMENT ERROR: Missing filename" << std::endl;
       break;
-    case ErrorCodes::WRONG_LINES_COUNT:std::cerr << "ARGUMENT ERROR: Incorrect lines count " << argument << std::endl;
+    case ErrorCodes::kWrongLinesCount:std::cerr << "ARGUMENT ERROR: Incorrect lines count " << argument << std::endl;
       break;
-    case ErrorCodes::WRONG_DELIMITER:std::cerr << "ARGUMENT ERROR: Incorrect delimiter " << argument << std::endl;
+    case ErrorCodes::kWrongDelimiter:std::cerr << "ARGUMENT ERROR: Incorrect delimiter " << argument << std::endl;
       break;
-    case ErrorCodes::FILE_UNAVAILABLE:std::cerr << "ERROR: Unable to open " << argument << std::endl;
+    case ErrorCodes::kFileUnavailable:std::cerr << "ERROR: Unable to open " << argument << std::endl;
       break;
-    case ErrorCodes::WRONG_ARGUMENT:std::cerr << "ARGUMENT ERROR: " << argument << " doesn't exist" << std::endl;
+    case ErrorCodes::kWrongArgument:std::cerr << "ARGUMENT ERROR: " << argument << " doesn't exist" << std::endl;
       break;
-    case ErrorCodes::VALUE_MISSING:std::cerr << "ARGUMENT ERROR: Missing value for " << argument << std::endl;
+    case ErrorCodes::kValueMissing:std::cerr << "ARGUMENT ERROR: Missing value for " << argument << std::endl;
       break;
-    case ErrorCodes::TAIL_WITHOUT_LINES:
+    case ErrorCodes::kTailWithoutLines:
       std::cerr << "ARGUMENT ERROR: " << argument << " must be used with --lines flag" << std::endl;
       break;
   }

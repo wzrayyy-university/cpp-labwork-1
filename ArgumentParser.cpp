@@ -15,7 +15,7 @@ char ArgumentParser::GetSpecialChar(char* ch) {
   else if (strncmp(ch, "\\\'", 2) == 0)
     return '\'';
   else {
-    ErrorMessage(ErrorCodes::WRONG_DELIMITER, ch, argv[0]);
+    ErrorMessage(ErrorCodes::kWrongDelimiter, ch, argv[0]);
     return '\0';
   }
 };
@@ -31,19 +31,19 @@ void ArgumentParser::GetLines(char arg[], int& idx) {
     if (argc > ++idx) {
       temp_lines = argv[idx];
     } else {
-      ErrorMessage(ErrorCodes::VALUE_MISSING, arg, argv[0]);
+      ErrorMessage(ErrorCodes::kValueMissing, arg, argv[0]);
     }
   }
   try {
     lines = std::stoi(temp_lines);
   } catch (std::invalid_argument& e) {
-    ErrorMessage(ErrorCodes::WRONG_LINES_COUNT, temp_lines, argv[0]);
+    ErrorMessage(ErrorCodes::kWrongLinesCount, temp_lines, argv[0]);
   }
 
   if (lines >= 0) {
     config.lines = lines;
   } else {
-    ErrorMessage(ErrorCodes::WRONG_LINES_COUNT, temp_lines, argv[0]);
+    ErrorMessage(ErrorCodes::kWrongLinesCount, temp_lines, argv[0]);
   }
 };
 
@@ -57,7 +57,7 @@ void ArgumentParser::GetDelimiter(char arg[], int& i) {
     if (argc > ++i)
       value = argv[i];
     else
-      ErrorMessage(ErrorCodes::VALUE_MISSING, arg, argv[0]);
+      ErrorMessage(ErrorCodes::kValueMissing, arg, argv[0]);
   }
 
   if (strncmp(value, "'", strlen("\'")) == 0) {
@@ -66,14 +66,14 @@ void ArgumentParser::GetDelimiter(char arg[], int& i) {
     } else if (strlen(value) == strlen(R"('\*')")) {
       config.delimiter = GetSpecialChar(value + strlen("\'"));
     } else {
-      ErrorMessage(ErrorCodes::WRONG_DELIMITER, value, argv[0]);
+      ErrorMessage(ErrorCodes::kWrongDelimiter, value, argv[0]);
     }
   } else if (strlen(value) == strlen("*")) {
     config.delimiter = value[0];
   } else if (strlen(value) == strlen(R"(\*)")) {
     config.delimiter = GetSpecialChar(value);
   } else {
-    ErrorMessage(ErrorCodes::WRONG_DELIMITER, value, argv[0]);
+    ErrorMessage(ErrorCodes::kWrongDelimiter, value, argv[0]);
   }
 };
 
@@ -92,7 +92,7 @@ void ArgumentParser::ParseArguments() {
       } else if (strncmp(argv[i], Arguments::kTailShort, 2) == 0
           || strncmp(argv[i], Arguments::kTail, strlen(Arguments::kTail)) == 0) {
         if (!is_lines_set) {
-          ErrorMessage(ErrorCodes::TAIL_WITHOUT_LINES, argv[i], argv[0]);
+          ErrorMessage(ErrorCodes::kTailWithoutLines, argv[i], argv[0]);
         }
         config.tail = true;
       } else if (strncmp(argv[i], Arguments::kDelimiterShort, 2) == 0
@@ -103,7 +103,7 @@ void ArgumentParser::ParseArguments() {
         is_lines_set = true;
         GetLines(argv[i], i);
       } else {
-        ErrorMessage(ErrorCodes::WRONG_ARGUMENT, argv[i], argv[0]);
+        ErrorMessage(ErrorCodes::kWrongArgument, argv[i], argv[0]);
       }
     } else {
       is_filename_set = true;
@@ -111,6 +111,6 @@ void ArgumentParser::ParseArguments() {
     }
   }
   if (!is_filename_set) {
-    ErrorMessage(ErrorCodes::FILENAME_MISSING, reinterpret_cast<char*>('\0'), argv[0]);
+    ErrorMessage(ErrorCodes::kFilenameMissing, reinterpret_cast<char*>('\0'), argv[0]);
   }
 }

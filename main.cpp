@@ -14,7 +14,7 @@ int main(int argc, char** argv) {
   std::ifstream file(config.filename);
 
   if (!file.is_open()) {
-    ErrorMessage(ErrorCodes::FILE_UNAVAILABLE, config.filename, argv[0]);
+    ErrorMessage(ErrorCodes::kFileUnavailable, config.filename, argv[0]);
   }
 
   ConsoleReader::ReadFile(file, config.lines, config.tail, config.delimiter);
