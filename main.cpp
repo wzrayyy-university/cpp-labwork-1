@@ -11,7 +11,7 @@ int main(int argc, char** argv) {
 
   parser.ParseArguments();
 
-  std::ifstream file(config.filename);
+  std::ifstream file(config.filename, std::ios::binary);
 
   if (!file.is_open()) {
     ErrorMessage(ErrorCodes::kFileUnavailable, config.filename, argv[0]);

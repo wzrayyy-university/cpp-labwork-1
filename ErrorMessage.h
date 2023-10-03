@@ -1,6 +1,6 @@
 #include <filesystem>
 
-enum ErrorCodes {
+enum class ErrorCodes {
   kFilenameMissing,
   kFileUnavailable,
   kWrongLinesCount,
