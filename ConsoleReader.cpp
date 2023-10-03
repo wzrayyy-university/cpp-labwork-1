@@ -52,6 +52,8 @@ void ConsoleReader::ReadFile(std::ifstream& file, const uint64_t& lines, const b
   if (tail) {
     int64_t pos = FindDelimiter(file, lines, delimiter);
     file.seekg(pos);
+    ReadFileToStdout(file, kDefaultLinesValue, kDefaultDelimiter);
+    exit(EXIT_SUCCESS);
   }
   ReadFileToStdout(file, lines, delimiter);
 };
